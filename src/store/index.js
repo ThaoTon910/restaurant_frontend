@@ -1,14 +1,16 @@
-import { configureStore , combineReducers} from '@reduxjs/toolkit';
-import {persistStore, persistReducer} from "redux-persist";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import  authReducer  from 'store/auth/reducer';
-import orderReducer from 'store/Order/reducer';
-import foodMenuReducer from 'store/FoodMenu/reducer';
-import  merchantReducer  from 'store/Merchant/reducer';
-import orderListReducer  from 'store/OrderList/reducer';
+import authReducer from "store/auth/reducer";
+import orderReducer from "store/Order/reducer";
+import foodMenuReducer from "store/FoodMenu/reducer";
+import merchantReducer from "store/Merchant/reducer";
+import orderListReducer from "store/OrderList/reducer";
+import promotionReducer from "store/Promotion/reducer";
+
 const persistConfig = {
   key: "root",
-  storage
+  storage,
 };
 
 const baseReducer = combineReducers({
@@ -16,11 +18,12 @@ const baseReducer = combineReducers({
   order: orderReducer,
   foodMenu: foodMenuReducer,
   merchant: merchantReducer,
-  orderList: orderListReducer
+  orderList: orderListReducer,
+  promotion: promotionReducer,
 });
 
-const persistedRedcer =  persistReducer(persistConfig, baseReducer);
+const persistedRedcer = persistReducer(persistConfig, baseReducer);
 
 export default configureStore({
-  reducer: persistedRedcer
-})
+  reducer: persistedRedcer,
+});

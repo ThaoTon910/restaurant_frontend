@@ -1,13 +1,12 @@
-import api from 'store/api';
-
+import api, { apiGetOrders } from "store/api";
 
 export const getCustomerOrders = async (id) => {
-    const resp = await api.get('/order');
-    if (resp.status !== 200) {
-        return []
-    } else {
-        return resp.data.filter(order => order.customer.id === id);
-    }
-}
+  const resp = await apiGetOrders.get("/order");
+  if (resp.status !== 200) {
+    return [];
+  } else {
+    return resp.data.filter((order) => order.customer.id === id);
+  }
+};
 
-export default {getCustomerOrders}
+export default { getCustomerOrders };

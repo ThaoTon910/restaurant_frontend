@@ -18,6 +18,9 @@ import {
   getTax,
   orderIsEmpty,
   getTipMultiplier,
+  getDiscount,
+  getPercentOff,
+  orderSelector,
 } from "store/Order/selector";
 import { setTip } from "store/Order/reducer";
 import { useHistory } from "react-router-dom";
@@ -28,8 +31,8 @@ export function PriceDisplay() {
   const tipMultiplier = useSelector(getTipMultiplier);
   const tipAmount = useSelector(getTip);
   const taxAmount = useSelector(getTax);
+  const discountAmount = useSelector(getDiscount);
   const total = useSelector(getTotal);
-
   return (
     <List dense>
       <ListItem>
@@ -70,6 +73,17 @@ export function PriceDisplay() {
           ${taxAmount.toFixed(2)}
         </ListItemSecondaryAction>
       </ListItem>
+      {discountAmount !== 0.0 ? (
+        <ListItem>
+          <ListItemText primary="Discount "></ListItemText>
+          <ListItemSecondaryAction>
+            {" "}
+            ${discountAmount.toFixed(2)}
+          </ListItemSecondaryAction>
+        </ListItem>
+      ) : (
+        <></>
+      )}
 
       <Divider></Divider>
       <ListItem>
@@ -100,7 +114,7 @@ function Cart() {
         ) : (
           <div>
             <Box height="60vh" overflow="scroll" marginY="20px">
-              <Order editable={true}/> <PriceDisplay />
+              <Order editable={true} /> <PriceDisplay />
               <Divider />
             </Box>
             <Divider></Divider>

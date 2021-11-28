@@ -18,6 +18,7 @@ import {
 const StyledAppBar = styled(AppBar)`
   background-color: rgb(42, 65, 44);
   color: white;
+  width: 100%;
 `;
 
 const Title = styled(Typography)`
@@ -112,10 +113,10 @@ function Navbar() {
           >
             <h3>Reservation</h3>
           </MyButton>
-          <MyButton color="inherit">
-            <h3>Reward</h3>
+          <MyButton color="inherit" onClick={() => history.push("/about")}>
+            <h3>About</h3>
           </MyButton>
-          <MorePopup />
+          {/* <MorePopup /> */}
         </MenuGroup>
 
         {userSection}

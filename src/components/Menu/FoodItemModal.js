@@ -226,7 +226,7 @@ function FoodItemModal() {
 
             <Grid item xs={9}>
               <ImageContainer>
-                <DisplayedImage src="placeholder.png" />
+                <DisplayedImage src={item.imageUrl} alt="" />
               </ImageContainer>
             </Grid>
           </Grid>
