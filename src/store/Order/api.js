@@ -10,6 +10,13 @@ export const postOrder = async (orderData) => {
   return resp.data;
 };
 
+export const PayOrderByCash = async (id) => {
+  const status = "PayByCash";
+  const resp = await api.put(`/order/${id}`, { status: status });
+  // console.log(resp.data);
+  return resp.data;
+};
+
 export const getOrder = async (id) => {
   const resp = await api.get(`/order/${id}`);
 
@@ -28,11 +35,17 @@ export const getCustomerOrders = async (id) => {
 };
 
 export const postPromoCode = async (orderData) => {
-  console.log("Promocode API return BEGIN: ");
+  // console.log("Promocode API return BEGIN: ");
 
   const resp = await api.post("/order/promocode", orderData);
-  console.log("Promocode API return: ", resp);
+  //console.log("Promocode API return: ", resp);
   return resp.data;
 };
 
-export default { postOrder, getMerchant, getOrder, postPromoCode };
+export default {
+  postOrder,
+  getMerchant,
+  getOrder,
+  postPromoCode,
+  PayOrderByCash,
+};

@@ -27,7 +27,16 @@ export const submitOrder = createAsyncThunk(
   async (_, { dispatch, getState }) => {
     const orderData = getOrderData(getState());
     const result = await orderApi.postOrder(orderData);
-    //console.log(result);
+    return result;
+  }
+);
+
+export const submitCashPaidOrder = createAsyncThunk(
+  "order/submitCashPaidOrder",
+  async (curentOrderId, { dispatch, getState }) => {
+    const id = curentOrderId;
+    const result = await orderApi.PayOrderByCash(id);
+    // console.log("orderData.id", id);
     return result;
   }
 );
@@ -36,9 +45,9 @@ export const submitPromoCode = createAsyncThunk(
   "order/submitPromoCode",
   async (_, { dispatch, getState }) => {
     const orderData = getOrderData(getState());
-    console.log("On code submit orderData:", orderData);
+    //console.log("On code submit orderData:", orderData);
     const result = await orderApi.postPromoCode(orderData);
-    console.log(result);
+    // console.log(result);
     return result;
   }
 );
@@ -48,9 +57,17 @@ export const fetchReceiptUrl = createAsyncThunk(
   async (_, { dispatch, getState }) => {
     const id = getOrderId(getState());
     let result;
+    let counter = 0;
     do {
       result = await orderApi.getOrder(id);
-    } while (result == null || result.payment.receiptURL == null);
+      if (result && result.status === "PayByCash") return "";
+      // console.log("id: ", id);
+      // console.log(result);
+      counter++;
+    } while (
+      (result === null || result.payment.receiptURL === null) &&
+      counter < 10
+    );
 
     return result.payment.receiptURL;
   }
@@ -137,6 +154,9 @@ export const orderReducer = createSlice({
     setTip: (state, action) => {
       state.tipMultiplier = action.payload;
     },
+    setID: (state, action) => {
+      state.id = action.payload;
+    },
 
     setCustomerInfo: (state, action) => {
       state.customerInfo = action.payload;
@@ -201,6 +221,7 @@ export const {
   changeQuantity,
   removeOrderItem,
   setTip,
+  setId,
   setCustomerInfo,
   setCardInfo,
   setClientSecret,

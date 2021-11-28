@@ -1,8 +1,8 @@
 import { CardElement } from "@stripe/react-stripe-js";
-import {
-  StripeCardElementChangeEvent,
-  StripeCardElementOptions,
-} from "@stripe/stripe-js";
+// import {
+//   StripeCardElementChangeEvent,
+//   StripeCardElementOptions,
+// } from "@stripe/stripe-js";
 import React from "react";
 
 const CARD_OPTIONS = {

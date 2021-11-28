@@ -2,6 +2,7 @@ import { Box, ListSubheader, GridList, GridListTile } from "@material-ui/core";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import styled from "styled-components";
+import Cart from "./Menu/Cart";
 
 const MyH2 = styled.h2`
   font-family: "Lucida Handwriting", cursive;
@@ -31,7 +32,6 @@ function About() {
   return (
     <Box minHeight="100vh" flexDirection="column" display="flex">
       <Navbar />
-
       <Box
         flexGrow={1}
         display="flex"

@@ -13,13 +13,13 @@ import {
 } from "@material-ui/core";
 import styled from "styled-components";
 import OrderInfo from "components/CheckOut/OrderInfo";
-import { useForm, Controller } from "react-hook-form";
+// import { useForm, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { setPickupTime, setPickupTimeOption } from "store/Order/reducer";
 import { getPickupTime, getPickupTimeOption } from "store/Order/selector";
-import { getMerchant } from "store/Merchant/reducer";
+// import { getMerchant } from "store/Merchant/reducer";
 import { merchantSelector } from "store/Merchant/selector";
 
 const MyContainer = styled.div`

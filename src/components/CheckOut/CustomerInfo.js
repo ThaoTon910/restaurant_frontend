@@ -1,11 +1,5 @@
-import {
-  Box,
-  Button,
-  Divider,
-  TextField,
-
-} from "@material-ui/core";
-import PhoneInput from 'react-phone-input-2'
+import { Box, Button, Divider, TextField } from "@material-ui/core";
+import PhoneInput from "react-phone-input-2";
 import { useForm, Controller } from "react-hook-form";
 import styled from "styled-components";
 import OrderInfo from "components/CheckOut/OrderInfo";
@@ -13,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCustomerInfo } from "store/Order/selector";
 import { setCustomerInfo } from "store/Order/reducer";
 import React from "react";
-import 'react-phone-input-2/lib/material.css'
-import { useEffect } from "react";
+import "react-phone-input-2/lib/material.css";
+// import { useEffect } from "react";
 
 const MyContainer = styled.div`
   display: flex;
@@ -27,23 +21,21 @@ const MyContainer = styled.div`
 
 const InfoTextField = styled(TextField)`
   margin-bottom: 20px !important;
-`
+`;
 
 const FormContainer = styled.div`
   width: 50%;
 `;
 
-
 const SubmitButton = styled(Button)`
   padding: 10px;
-`
+`;
 
 function CustomerInfo({ onFinished }) {
   const customer = useSelector(getCustomerInfo);
   const { handleSubmit, control, setError, clearErrors } = useForm({
-    defaultValues: customer
+    defaultValues: customer,
   });
-
 
   const dispatch = useDispatch();
 
@@ -52,15 +44,11 @@ function CustomerInfo({ onFinished }) {
     onFinished();
   };
 
-
-
   return (
     <Box>
-
       <form>
         <MyContainer>
           <FormContainer>
-
             <Controller
               control={control}
               rules={{ required: true }}
@@ -81,7 +69,7 @@ function CustomerInfo({ onFinished }) {
                     innerRef={ref}
                     label="First name"
                   />
-                )
+                );
               }}
             />
 
@@ -104,28 +92,28 @@ function CustomerInfo({ onFinished }) {
                     value={value}
                     innerRef={ref}
                     label="Surname"
-
                   />
-                )
+                );
               }}
             />
-
-
 
             <Controller
               control={control}
               name="email"
-
-              rules={{ required: true, pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ }}
-              render={(
-                { field: { onChange, onBlur, value, ref },
-                  fieldState: { invalid, isTouched, error },
-                }) => {
+              rules={{
+                required: true,
+                pattern:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              }}
+              render={({
+                field: { onChange, onBlur, value, ref },
+                fieldState: { invalid, isTouched, error },
+              }) => {
                 let errorText = "";
-                if (error?.type === 'required') {
-                  errorText = "Email is required."
-                } else if (error?.type === 'pattern') {
-                  errorText = "Email is invalid."
+                if (error?.type === "required") {
+                  errorText = "Email is required.";
+                } else if (error?.type === "pattern") {
+                  errorText = "Email is invalid.";
                 }
                 return (
                   <InfoTextField
@@ -139,51 +127,55 @@ function CustomerInfo({ onFinished }) {
                     label="email"
                     innerRef={ref}
                   />
-                )
+                );
               }}
             />
-
 
             <Controller
               control={control}
               name="phone"
-              rules={{ 
+              rules={{
                 required: true,
-                validate: value => {
+                validate: (value) => {
                   if (value.match(/12345/)) {
-                    return 'Invalid value: ' + value ;
+                    return "Invalid value: " + value;
                   } else if (value.match(/1234/)) {
                     return false;
                   } else {
                     return true;
                   }
-                }
+                },
               }}
               render={({
                 field: { onChange, onBlur, value, ref },
                 fieldState: { invalid, isTouched, error },
-
               }) => {
                 return (
                   <PhoneInput
-                    country={'us'}
+                    country={"us"}
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
                     isValid={!invalid}
                   />
-                )
+                );
               }}
             />
           </FormContainer>
 
-          <OrderInfo>
-
-          </OrderInfo>
+          <OrderInfo></OrderInfo>
         </MyContainer>
 
         <Divider variant="middle" />
-        <SubmitButton onClick={handleSubmit(onSubmit)} color="primary" fullWidth variant="contained"> Next   </SubmitButton>
+        <SubmitButton
+          onClick={handleSubmit(onSubmit)}
+          color="primary"
+          fullWidth
+          variant="contained"
+        >
+          {" "}
+          Next{" "}
+        </SubmitButton>
       </form>
     </Box>
   );

@@ -18,6 +18,7 @@ import {
 const StyledAppBar = styled(AppBar)`
   background-color: rgb(42, 65, 44);
   color: white;
+  width: 100%;
 `;
 
 const Title = styled(Typography)`

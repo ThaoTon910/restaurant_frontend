@@ -1,5 +1,5 @@
 import { AuthState, onAuthUIStateChange } from "@aws-amplify/ui-components";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, logOut } from "store/auth/reducer";
 import { Auth } from "aws-amplify";
@@ -10,6 +10,7 @@ import Footer from "components/Footer";
 import Navbar from "components/Navbar";
 import {
   Box,
+  Button,
   List,
   ListItem,
   ListItemText,
@@ -32,6 +33,10 @@ const MyList = styled(List)`
   display: flex;
   flex-direction: column;
 `;
+const SubmitButton = styled(Button)`
+  padding: 10px;
+  width: 30%;
+`;
 
 const OrderItem = (props) => {
   const { id, quantity, specialInstruction, addons, price } = props;
@@ -39,9 +44,7 @@ const OrderItem = (props) => {
   const addonDict = useSelector(getAllAddonDict);
   const menuItem = menuItemDict[id];
 
-  const itemAddons = addons.map((addon) =>
-    addonDict[addon] ? addonDict[addon].name : ""
-  );
+  const itemAddons = addons.map((addon) => addonDict[addon].name);
   if (!menuItem) {
     return <></>;
   }
@@ -85,7 +88,7 @@ function OrderDisplay({ order }) {
           <p>Status: {order.status}</p>
           <List>
             {order.items.map((item) => {
-              console.log(item);
+              // console.log(item);
               return (
                 <OrderItem
                   id={item.menuItemId}
@@ -109,10 +112,19 @@ function CustomerOrder(props) {
   const loggedIn = useSelector(userLoggedIn);
   const uID = useSelector(getUserid);
   const orders = useSelector((state) => state.orderList.orders);
-  console.log(orders);
+  const [isOrder, setisOrder] = useState(false);
+
+  const onGetAllOrders = async () => {
+    dispatch(getCustomerOrders(uID));
+    // console.log("onGetAllOrders", orders);
+    if (orders) {
+      setisOrder(true);
+    }
+  };
+
   useEffect(() => {
     if (loggedIn) {
-      dispatch(getCustomerOrders(uID));
+      // dispatch(getCustomerOrders(uID));
     }
   }, [loggedIn]);
 
@@ -122,6 +134,7 @@ function CustomerOrder(props) {
   return (
     <Box minHeight="100vh" flexDirection="column" display="flex">
       <Navbar />
+
       <Box
         flexGrow={1}
         display="flex"
@@ -131,11 +144,24 @@ function CustomerOrder(props) {
         paddingTop="5vh"
       >
         <h1>Your current orders</h1>
-        <Box maxWidth="600px">
-          {orders.map((order) => (
-            <OrderDisplay order={order} />
-          ))}
-        </Box>
+
+        <SubmitButton
+          onClick={onGetAllOrders}
+          color="secondary"
+          variant="contained"
+          width="30%"
+        >
+          View history purchase
+        </SubmitButton>
+        {isOrder ? (
+          <Box maxWidth="600px">
+            {orders.map((order) => (
+              <OrderDisplay order={order} />
+            ))}
+          </Box>
+        ) : (
+          <></>
+        )}
       </Box>
       <Footer />
     </Box>
