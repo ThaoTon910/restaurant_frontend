@@ -26,8 +26,9 @@ const PreviewImage = styled(AWSImage)`
 function Promotions(props) {
   const promos = useSelector(promotionSelector);
   //const isLoading = useSelector(promotionIsLoading);
-  console.log("PROMOS:", promos);
-  const imageUrl = "https://tinyurl.com/y4hbjyy3";
+
+  // console.log("PROMOS:", promos);
+  // const imageUrl = "https://tinyurl.com/2p9yx76m";
   return (
     <Box minHeight="100vh" flexDirection="column" display="flex">
       <Navbar />
@@ -45,7 +46,7 @@ function Promotions(props) {
             alt="Pho 28 Active Promotion"
             width="400"
             height="500"
-            image={imageUrl}
+            image={promos.promotions[0].imageUrl}
           />
           <CardContent>
             <Typography gutterBottom variant="h6">

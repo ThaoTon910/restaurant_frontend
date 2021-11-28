@@ -41,10 +41,10 @@ function About() {
         align-items="stretch"
       >
         <MyDiv>
-          <MyH2> Well Come to Pho 28 Website </MyH2>
+          <MyH2> Welcome to Pho 28 Website </MyH2>
           <AboutText>
-            THIS ECOMMERCE WEBSITE WAS BUILT AND DEVELOPED THROUGH THE SENJOR
-            PROJECT AT SAN JOSE UNIVERSITY, FALL 2021.
+            THIS ECOMMERCE WEBSITE WAS BUILT AND DEVELOPED AS A SENJOR PROJECT
+            AT SAN JOSE UNIVERSITY, FALL 2021.
             <h2> Group members:</h2>
             <ul>
               <li> Yong Gui Huang (CMPE)</li>
