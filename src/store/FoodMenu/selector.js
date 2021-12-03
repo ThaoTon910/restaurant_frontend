@@ -21,6 +21,11 @@ export const isLoading = createSelector(
   (foodMenu) => foodMenu.loading
 );
 
+export const isCategoryMenuShow = createSelector(
+  foodMenuSelector,
+  (foodMenu) => foodMenu.showCategory
+);
+
 export const getCategories = createSelector(
   foodMenuSelector,
   (foodMenu) => foodMenu.categories
@@ -82,6 +87,11 @@ export const getFilteredItems = createSelector(
   getCurrCategory,
   (loading, category) => (loading ? [] : category.menuItems)
 );
+// export const getAllFoodItems = createSelector(
+//   isLoading,
+//   getCurrCategory,
+//   (loading, category) => (loading ? [] : category.menuItems)
+// );
 
 export const itemIsDisplayed = createSelector(
   foodMenuSelector,

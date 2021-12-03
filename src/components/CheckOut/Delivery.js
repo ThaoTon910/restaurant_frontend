@@ -179,7 +179,7 @@ function Delivery({ onFinished }) {
           )}
         </FormContainer>
 
-        <OrderInfo></OrderInfo>
+        <OrderInfo editable="false"></OrderInfo>
       </MyContainer>
 
       <Divider variant="middle" />

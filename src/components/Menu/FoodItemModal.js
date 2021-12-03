@@ -31,33 +31,69 @@ import AWSImage from "components/Menu/AWSItemImage";
 
 const MyModal = styled(Modal)`
   margin: auto;
-  width: 70vw;
-  min-width: 600px;
-  background-color: white;
+  width: 45vw;
+  max-width: 600px
+  min-width: 500px;
+   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
     rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  
+  @media (max-width: 600px) {
+    width: 80vw;
+
+      
+    }
 `;
 
 const MainContainer = styled.div`
   display: flex;
-  align-items: stretch;
-  padding: 2rem;
-  height: 100%;
-  overflow: scroll;
-`;
+  flex: 1 1 auto
+  flex-direction: row;
+  justify-content: flex-start;
 
-const LeftContainer = styled.div`
-  width: 60%;
+  padding: 2rem;
+  margin: auto;
+  margin-bottom: 8rem;
+  margin-top: 0;
+  overflow: scroll;
+
+  @media (min-width: 400px) {
+    flex-direction: column;
+    height: 100%;
+    
+  }
+`;
+// align-items: stretch;
+
+const LeftContainer = styled.div` 
+  margin: auto;
+  flex: 1 1 auto
+  flex-direction: column;
+  border: 1px solid rgb(205, 205, 205);
+  border-radius: 25px;
+  @media (min-width: 500px) {
+    height: 100vh;
 `;
 
 const RightContainer = styled.div`
-  width: 35%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  // text-align: center;
+  padding-right: 1rem;
+  padding-left: 0.5rem;
+  @media (min-width: 500px) {
+    height: 100vh;
+  }
 `;
 
 const ImageContainer = styled.div`
-  width: 100%;
+  // width: 100%;
   max-width: 600px;
+  height: 50vh;
+  margin: 0;
   border: 1px solid rgb(205, 205, 205);
   border-radius: 25px;
 `;
@@ -67,11 +103,14 @@ const GalleryList = styled(GridList)`
   max-height: 580px;
 `;
 const QuantityPicker = styled(TextField)`
-  width: 4rem;
+  height: 3rem;
 `;
 
 const OrderButton = styled(Button)`
-  margin-left: 1rem !important;
+  // margin-left: 1rem !important;
+  height: 3rem;
+  margin-bottom: 5rem;
+  margin-left: 0.5rem;
 `;
 
 const PreviewContainer = styled.div`
@@ -86,13 +125,29 @@ const PreviewImage = styled(AWSImage)`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 20px;
   position: absolute;
 `;
 
 const DisplayedImage = styled(AWSImage)`
-  width: 100%;
-  height: 100%;
+  width: 99%;
+  height: 99%;
+  border-radius: 20px;
   object-fit: cover;
+`;
+
+const ItemNameTypography = styled(Typography)`
+margin-top: 1rem;
+font-size:  22px; 
+color: green;
+@media (max-width: 1000px) {
+   font-size: 95%; 
+`;
+const ItemPriceTypography = styled(Typography)`
+ font-size:  22px; 
+color: brown;
+@media (max-width: 1000px) {
+   font-size: 95%; 
 `;
 
 function AddonPicker(props) {
@@ -210,11 +265,11 @@ function FoodItemModal() {
         <LeftContainer>
           <Grid
             container
-            direction="row"
+            // direction="row"
             justify="space-around"
             alignItems="stretch"
           >
-            <Grid item xs={2}>
+            {/* <Grid item xs={2}>
               <GalleryList cellHeight="auto" cols={1}>
                 <GridListTile>
                   <PreviewContainer>
@@ -222,9 +277,9 @@ function FoodItemModal() {
                   </PreviewContainer>
                 </GridListTile>
               </GalleryList>
-            </Grid>
+            </Grid> */}
 
-            <Grid item xs={9}>
+            <Grid item>
               <ImageContainer>
                 <DisplayedImage src={item.imageUrl} alt="" />
               </ImageContainer>
@@ -233,10 +288,12 @@ function FoodItemModal() {
         </LeftContainer>
 
         <RightContainer>
-          <Typography variant="h4">{item && item.name}</Typography>
-          <Typography variant="h5" gutterBottom>
+          <ItemNameTypography>{item && item.name}</ItemNameTypography>
+          <ItemPriceTypography variant="h5" gutterBottom>
             ${item && item.price}
-          </Typography>
+          </ItemPriceTypography>
+          <Divider />
+
           {addonGroups.map((group) => (
             <Box marginY="30px">
               <AddonPicker
@@ -250,7 +307,7 @@ function FoodItemModal() {
             label="Special instructions"
             onChange={(event) => setSpecialInstruction(event.target.value)}
             multiline
-            rows={2}
+            // rows={2}
             variant="outlined"
           />
           <Box marginY="20px" display="flex" alignItems="stretch">
@@ -273,7 +330,6 @@ function FoodItemModal() {
               Add to cart
             </OrderButton>
           </Box>
-          <Box height="150px" />
         </RightContainer>
       </MainContainer>
     </MyModal>

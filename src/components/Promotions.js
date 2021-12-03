@@ -16,29 +16,29 @@ import AWSImage from "components/Menu/AWSItemImage";
 import styled from "styled-components";
 import moment from "moment";
 
-const PreviewImage = styled(AWSImage)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
+const MyContainer = styled.div`
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 600px;
 `;
 
 function Promotions(props) {
   const promos = useSelector(promotionSelector);
-  //const isLoading = useSelector(promotionIsLoading);
 
-  // console.log("PROMOS:", promos);
-  // const imageUrl = "https://tinyurl.com/2p9yx76m";
   return (
     <Box minHeight="100vh" flexDirection="column" display="flex">
       <Navbar />
-      <Box
+      {/* <Box
         flexGrow={1}
         display="flex"
         justifyContent="space-around"
         alignItems="center"
         color="text.primary"
-      >
+      > */}
+      <MyContainer>
         <Card sx={{ maxWidth: 345 }}>
           <CardMedia
             object-fit="cover"
@@ -66,7 +66,7 @@ function Promotions(props) {
             </Typography>
           </CardContent>
         </Card>
-      </Box>
+      </MyContainer>
       <Footer />
     </Box>
   );

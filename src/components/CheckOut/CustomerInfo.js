@@ -12,11 +12,12 @@ import "react-phone-input-2/lib/material.css";
 
 const MyContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: stretch;
   justify-content: space-around;
-  margin-top: 15px;
-  margin-bottom: 30px;
+  // margin-top: 15px;
+  // margin-bottom: 30px;
+  max-width: 700px;
 `;
 
 const InfoTextField = styled(TextField)`
@@ -46,6 +47,7 @@ function CustomerInfo({ onFinished }) {
 
   return (
     <Box>
+      {/* <Box bgcolor="primary.main"> */}
       <form>
         <MyContainer>
           <FormContainer>
@@ -163,7 +165,7 @@ function CustomerInfo({ onFinished }) {
             />
           </FormContainer>
 
-          <OrderInfo></OrderInfo>
+          <OrderInfo editable="true"></OrderInfo>
         </MyContainer>
 
         <Divider variant="middle" />

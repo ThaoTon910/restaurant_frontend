@@ -13,7 +13,7 @@ import Delivery from "components/CheckOut/Delivery";
 import Payments from "components/CheckOut/Payment";
 import ReviewSubmit from "components/CheckOut/ReviewSubmit";
 import Receipt from "components/CheckOut/Receipt";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -24,6 +24,24 @@ import { resetOrder } from "store/Order/reducer";
 const stripePromise = loadStripe(
   "pk_test_51Jno9iJtWODUig1GQTrVSLriYSeOdgTh1wrAxt8suv95JuJu1LUDCjpv3Lp6kpWZlAP2dW2NPBPi8MemvYxzhG8J00sVV0Dwcj"
 );
+
+const MainContainer = styled.div`
+  display: flex;
+  padding: 4rem;
+  margin: 2rem 3rem;
+  align-items: stretch;
+  flex-grow: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  @media (max-width: 720px) {
+    width: 300p;
+  }
+`;
+
+const MainBox = styled(Box)`
+  min-width: 450px;
+  max-width: 45vw;
+`;
 
 const StyledCard = styled(Card)`
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
@@ -86,63 +104,61 @@ function CheckOut() {
   };
 
   return (
-    <Box minHeight="100vh" flexDirection="column" display="flex">
-      <Navbar />
-      <Box
-        flexGrow={1}
-        display="flex"
-        justifyContent="space-around"
-        color="text.primary"
-        paddingTop="5vh"
-      >
-        <Box minWidth="630px" maxWidth="35vw">
-          <Box marginBottom="20px">
-            <Typography variant="h3">Check out</Typography>
-          </Box>
-          <StyledCard>
-            <StyledTabs
-              value={currentStep}
-              onChange={(e, newStep) => {
-                setCurrentStep(newStep);
-              }}
-              indicatorColor="primary"
-              textColor="primary"
-              variant="fullWidth"
-              aria-label="full width tabs example"
-            >
-              {steps.map((step, index) => (
-                <StyledTab
-                  disabled={
-                    index > currentStep || (currentStep === 4 && index !== 4)
-                  }
-                  label={step}
-                />
-              ))}
-            </StyledTabs>
+    <React.Fragment>
+      <Box minHeight="100vh" flexDirection="column" display="flex">
+        <Navbar />
+        <MainContainer>
+          <MainBox>
+            <Box marginBottom="0.5rem" marginTop="0.5rem">
+              <Typography variant="h3" align="center">
+                Check out
+              </Typography>
+            </Box>
+            <StyledCard>
+              <StyledTabs
+                value={currentStep}
+                onChange={(e, newStep) => {
+                  setCurrentStep(newStep);
+                }}
+                indicatorColor="primary"
+                textColor="primary"
+                variant="fullWidth"
+                aria-label="full width tabs example"
+              >
+                {steps.map((step, index) => (
+                  <StyledTab
+                    disabled={
+                      index > currentStep || (currentStep === 4 && index !== 4)
+                    }
+                    label={step}
+                  />
+                ))}
+              </StyledTabs>
 
-            <CardContent>
-              <Elements stripe={stripePromise}>
-                <TabPanel value={currentStep} index={0}>
-                  <CustomerInfo onFinished={() => setCurrentStep(1)} />
-                </TabPanel>
-                <TabPanel value={currentStep} index={1}>
-                  <Delivery onFinished={() => setCurrentStep(2)} />
-                </TabPanel>
-                <TabPanel value={currentStep} index={2}>
-                  <ReviewSubmit onFinished={() => setCurrentStep(3)} />
-                </TabPanel>
-                <TabPanel value={currentStep} index={3}>
-                  <Payments onFinished={() => setCurrentStep(4)} />
-                </TabPanel>
-                <TabPanel value={currentStep} index={4}>
-                  <Receipt onFinished={onCheckoutFinished} />
-                </TabPanel>
-              </Elements>
-            </CardContent>
-          </StyledCard>
-        </Box>
+              <CardContent>
+                <Elements stripe={stripePromise}>
+                  <TabPanel value={currentStep} index={0}>
+                    <CustomerInfo onFinished={() => setCurrentStep(1)} />
+                  </TabPanel>
+                  <TabPanel value={currentStep} index={1}>
+                    <Delivery onFinished={() => setCurrentStep(2)} />
+                  </TabPanel>
+                  <TabPanel value={currentStep} index={2}>
+                    <ReviewSubmit onFinished={() => setCurrentStep(3)} />
+                  </TabPanel>
+                  <TabPanel value={currentStep} index={3}>
+                    <Payments onFinished={() => setCurrentStep(4)} />
+                  </TabPanel>
+                  <TabPanel value={currentStep} index={4}>
+                    <Receipt onFinished={onCheckoutFinished} />
+                  </TabPanel>
+                </Elements>
+              </CardContent>
+            </StyledCard>
+          </MainBox>
+        </MainContainer>
       </Box>
-    </Box>
+    </React.Fragment>
   );
 }
 

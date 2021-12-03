@@ -3,14 +3,17 @@ import { useSelector } from "react-redux";
 import { merchantIsLoading, merchantSelector } from "store/Merchant/selector";
 import styled from "styled-components";
 import moment from "moment";
+import { isMobile } from "react-device-detect";
 
 const FooterContainer = styled.div`
   height: 30vh;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
   background-color: rgb(42, 65, 44);
   align-items: center;
+  min-width: 620px;
+
+  color: white;
 `;
 
 const MapContainer = styled.div`
@@ -55,15 +58,19 @@ function Footer() {
   }
 
   return (
-    <FooterContainer>
-      <ContactContainer>
-        <Typography variant="h6" gutterBottom>
-          Contact us
-        </Typography>
-        <Typography variant="body1">{merchant.name}</Typography>
-        <Typography variant="body1">{merchant.phone}</Typography>
-        <Typography variant="body1">{merchant.address}</Typography>
-      </ContactContainer>
+    <FooterContainer color="inherit">
+      {isMobile ? (
+        <></>
+      ) : (
+        <ContactContainer>
+          <Typography variant="h6" gutterBottom>
+            Contact us
+          </Typography>
+          <Typography variant="body1">{merchant.name}</Typography>
+          <Typography variant="body1">{merchant.phone}</Typography>
+          <Typography variant="body1">{merchant.address}</Typography>
+        </ContactContainer>
+      )}
 
       <MapContainer>
         <iframe
@@ -74,31 +81,27 @@ function Footer() {
             "&t=&z=13&ie=UTF8&iwloc=&output=embed"
           }
         ></iframe>
-        {/*      
-        <iframe
-          id="gmap_canvas"
-          src={"https://maps.google.com/maps/search/" + searchText}
-          frameborder="0"
-          scrolling="no"
-          marginheight="0"
-          marginwidth="0"
-        ></iframe> */}
+
         <Typography variant="body1" gutterBottom>
           {merchant.name} | Copyright 2021 All rights reserved
         </Typography>
       </MapContainer>
 
-      <HoursContainer>
-        <Typography variant="h6" gutterBottom>
-          HOURS
-        </Typography>
-        {merchant.hours.map((hour) => (
-          <Typography variant="body1">
-            {hour.day} : {moment(hour.start, "HH:mm:ss").format("LT")} -{" "}
-            {moment(hour.end, "HH:mm:ss").format("LT")}
+      {isMobile ? (
+        <h2></h2>
+      ) : (
+        <HoursContainer>
+          <Typography variant="h6" gutterBottom>
+            HOURS
           </Typography>
-        ))}
-      </HoursContainer>
+          {merchant.hours.map((hour) => (
+            <Typography variant="body1">
+              {hour.day} : {moment(hour.start, "HH:mm:ss").format("LT")} -{" "}
+              {moment(hour.end, "HH:mm:ss").format("LT")}
+            </Typography>
+          ))}
+        </HoursContainer>
+      )}
     </FooterContainer>
   );
 }

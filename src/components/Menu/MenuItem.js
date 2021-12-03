@@ -20,6 +20,15 @@ const MenuItemImage = styled(AWSImage)`
   border: 2mm ridge lightgrey;
   border-radius: 0.5rem;
 `;
+const ItemNameTypography = styled(Typography)`
+@media (max-width: 1000px) {
+  font-size: 95%; 
+`;
+const DiscriptTypography = styled(Typography)`
+@media (max-width: 1000px) {
+  font-size: 40%;
+ 
+`;
 
 function MenuItem(props) {
   const { item } = props;
@@ -38,9 +47,11 @@ function MenuItem(props) {
       <Box {...myProps}>
         <Box>
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="h5">{item.name}</Typography>
+            <ItemNameTypography variant="h5">{item.name}</ItemNameTypography>
           </Box>
-          <Typography variant="body2">{item.description}</Typography>
+          <DiscriptTypography variant="body2">
+            {item.description}
+          </DiscriptTypography>
         </Box>
         <Typography variant="h6">${item.price}</Typography>
       </Box>

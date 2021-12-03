@@ -114,6 +114,7 @@ export const orderReducer = createSlice({
           addonIds,
           specialInstruction,
           promoCode,
+          imageUrl,
         } = action.payload;
         if (orderKey in state.items) {
           state.items[orderKey].quantity += quantity;
@@ -123,9 +124,11 @@ export const orderReducer = createSlice({
             quantity,
             addonIds,
             specialInstruction,
+            imageUrl,
           };
         }
       },
+
       prepare: ({ item, quantity, addons, specialInstruction }) => {
         const orderKey = getHash(
           [item.id, specialInstruction, ...addons.concat().sort()].join()
@@ -134,6 +137,7 @@ export const orderReducer = createSlice({
           payload: {
             orderKey,
             itemId: item.id,
+            imageUrl: item.imageUrl,
             addonIds: addons,
             quantity,
             specialInstruction,

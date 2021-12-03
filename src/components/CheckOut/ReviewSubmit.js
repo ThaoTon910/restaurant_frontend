@@ -16,16 +16,19 @@ import { merchantSelector } from "store/Merchant/selector";
 
 const MyContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: stretch;
   justify-content: space-around;
-  margin-top: 15px;
-  margin-bottom: 30px;
+  // margin-top: 15px;
+  // margin-bottom: 30px;
+  max-width: 700px;
 `;
 
 const FormContainer = styled.div`
-  width: 50%;
-  padding-right: 30px;
+  padding-top: 0.1rem;
+  margin-left: 1.5rem;
+  width: 100%;
+  flex-direction: column;
 `;
 
 const SubmitButton = styled(Button)`
@@ -38,8 +41,9 @@ function ReviewSubmit({ onFinished }) {
   const pickupTimeStr = useSelector(getPickupTime);
   const cardElement = useSelector(getCardInfo);
   const clientSecret = useSelector(getClientSecret);
-
   const merchant = useSelector(merchantSelector);
+  const today = new Date();
+
   const onSubmitClicked = async () => {
     if (onFinished) {
       onFinished();
@@ -50,15 +54,24 @@ function ReviewSubmit({ onFinished }) {
   };
   return (
     <Box>
-      <h1>{clientSecret}</h1>
       <MyContainer>
         <FormContainer>
-          <p>Your details:</p>
+          <h2>Your details:</h2>
           <p>
-            {customerInfo.email} <br />
-            {`${customerInfo.firstname} ${customerInfo.surname}`} <br />
-            {customerInfo.phone} <br />
-            Order updates will be sent by text message
+            Name: {`${customerInfo.firstname} ${customerInfo.surname}`} <br />
+            Email: {customerInfo.email} <br />
+            Phone: {customerInfo.phone} <br />
+            Date:{" "}
+            {today.getMonth() +
+              "-" +
+              today.getDate() +
+              "-" +
+              today.getFullYear() +
+              ", at " +
+              today.getHours() +
+              ":" +
+              today.getMinutes()}{" "}
+            <br />
           </p>
           <p>
             Delivery option: <br />
@@ -70,7 +83,6 @@ function ReviewSubmit({ onFinished }) {
             Pickup instructions <br />
             Customers pick up orders inside the restaurant. <br />
           </p>
-          <br />
           <Divider />
           <br />
           Coupon code:
@@ -91,7 +103,7 @@ function ReviewSubmit({ onFinished }) {
           </Box>
         </FormContainer>
 
-        <OrderInfo></OrderInfo>
+        <OrderInfo editable="true"></OrderInfo>
       </MyContainer>
 
       <SubmitButton

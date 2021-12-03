@@ -18,14 +18,14 @@ import { ConsoleLogger } from "@aws-amplify/core";
 const MyContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: center;
   justify-content: space-around;
-  margin-top: 15px;
-  margin-bottom: 30px;
+  max-width: 700px;
 `;
-
 const InfoTextField = styled(TextField)`
-  margin-bottom: 10px;
+  padding-top: 0.1rem;
+  width: 100%;
+  flex-direction: column;
 `;
 
 const FormContainer = styled.div`
@@ -73,7 +73,7 @@ function ReserCustomerInfo({ onFinished }) {
     history.push("/");
   }
   return (
-    <Box>
+    <Box marginLeft="0.2rem">
       <MyContainer>
         <FormContainer>
           <FormContainer>
@@ -158,7 +158,7 @@ function ReserCustomerInfo({ onFinished }) {
                 );
               }}
             />
-
+            <br />
             <Controller
               control={control}
               name="phone"
@@ -210,7 +210,7 @@ function ReserCustomerInfo({ onFinished }) {
         </FormContainer>
 
         <OrderContainer>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" gutterBottom margin-top="1rem">
             Your reservation at Pho28
           </Typography>
           <Divider />

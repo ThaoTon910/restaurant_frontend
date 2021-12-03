@@ -21,13 +21,27 @@ const MenuItemBox = styled.div`
 `;
 
 const TextBox = styled.div`
-  flex-basis: 600px;
+  padding: 2rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-width: 600px;
+  background-image: url("https://i.imgur.com/yGeOUMB.jpg");
+  -webkit-mask-image: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 1) 10%,
+    transparent 120%
+  );
+  box-shadow: inset 135px -5px 82px 0px #ffffff;
+  -webkit-box-shadow: inset 135px -5px 82px 0px #ffffff;
+  background-size: cover;
+  height: 100%;
+  background-repeat: no-repeat;
 `;
+
 const ImageBox = styled.div`
   flex-grow: 1;
   display: flex;
@@ -38,11 +52,14 @@ const ImgContainer = styled.div`
   -webkit-mask-image: linear-gradient(
     to left,
     rgba(0, 0, 0, 1) 10%,
-    transparent 100%
+    transparent 50%
   );
   box-shadow: inset 135px -5px 82px 0px #ffffff;
   -webkit-box-shadow: inset 135px -5px 82px 0px #ffffff;
+
   margin-left: auto;
+  background-color: red;
+  border: 2px solid #73ad21;
 `;
 
 const BannerImage = styled.img`
@@ -50,33 +67,23 @@ const BannerImage = styled.img`
 `;
 
 const RestaurantName = styled.h1`
-  margin-top: 4rem;
-  font-size: 60px;
+  font-size: 70px;
   font-family: Copperplate, fantasy, monospace;
-  @media (max-width: 500px) {
-    color: #ff3399;
-    font-size: 3rem;
-  }
 `;
 
 const HoursDisplay = styled.h2`
-  font-family: "Lucida Handwriting", cursive;
+  font-family: "Garamond, serif", cursive;
   margin: 10px;
-  @media (max-width: 500px) {
-    color: #ff3399;
-    font-size: 1.5rem;
-    margin-left: 0;
-    margin-right: 0;
-  }
+  font-size: 40px;
+  color: #white;
 `;
 
 const MenuButton = styled.span`
   margin: 20px;
   background-color: rgb(42, 65, 44);
-  padding: 15px 20px;
-  border-radius: 10px;
+  // padding: 15px 20px;
+  border-radius: 20px;
   color: #ff3399;
-  font-weight: 400;
   font-family: Copperplate, fantasy, monospace;
   font-size: 20px;
   transition: all 200ms ease;
@@ -90,13 +97,14 @@ const MenuButton = styled.span`
   }
 `;
 
-function Home() {
+function HomeMobile() {
   const merchant = useSelector(merchantSelector);
   const isLoading = useSelector(merchantIsLoading);
+
   return (
-    <Box minHeight="100vh" flexDirection="column" display="flex">
+    <Box minHeight="100vh" flexDirection="column" display="flex" width="100%">
       <Navbar />
-      <Box padding="10px" flexGrow={1} display="flex" alignItems="stretch">
+      <Box display="flex" alignItems="stretch" width="100%">
         <TextBox>
           {isLoading ? (
             <CircularProgress />
@@ -110,7 +118,7 @@ function Home() {
                   {moment(hour.end, "HH:mm:ss").format("LT")}
                 </HoursDisplay>
               ))}
-              <Link to="/menu">
+              <Link to="/menumobile">
                 <Button variant="outlined" component={MenuButton}>
                   View our menu
                 </Button>
@@ -118,11 +126,6 @@ function Home() {
             </>
           )}
         </TextBox>
-        <ImageBox>
-          <ImgContainer>
-            <BannerImage src="https://i.imgur.com/yGeOUMB.jpg" />
-          </ImgContainer>
-        </ImageBox>
       </Box>
 
       <Footer />
@@ -130,4 +133,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomeMobile;

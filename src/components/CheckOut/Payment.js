@@ -81,7 +81,7 @@ function Payment({ onFinished }) {
   };
 
   const onSubmit = async (data) => {
-    console.log("setPayByCash", isPayByCash);
+    // console.log("setPayByCash", isPayByCash);
 
     if (isPayByCash) {
       dispatch(submitCashPaidOrder(currentOrderId)).then(() => onFinished());
@@ -151,7 +151,7 @@ function Payment({ onFinished }) {
             )}
           </FormContainer>
 
-          <OrderInfo></OrderInfo>
+          <OrderInfo editable="false"></OrderInfo>
         </MyContainer>
 
         <Divider variant="middle" />

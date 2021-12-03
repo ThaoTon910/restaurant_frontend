@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderItemInfo } from "store/Order/selector";
+import { getOrderItemInfo, getOrderimageUrl } from "store/Order/selector";
 import { changeQuantity, removeOrderItem } from "store/Order/reducer";
 import React from "react";
 import AWSImage from "components/Menu/AWSItemImage";
@@ -29,7 +29,7 @@ const QuantityPicker = styled(TextField)`
 `;
 
 function OrderItem(props) {
-  const { order, editable } = props;
+  const { order, editable, imageUrl } = props;
   const dispatch = useDispatch();
   const totalPrice =
     (order.itemPrice +
@@ -52,12 +52,12 @@ function OrderItem(props) {
 
   return (
     <ListItem alignItems="flex-start">
-      <OrderItemImage src={order.imageUrl} alt="" />
+      <OrderItemImage src={imageUrl} alt="" />
       <div>
         <ListItemText
           primary={
             <Typography variant="body1" color="textPrimary">
-              {order.itemName} - ${totalPrice.toFixed(2)}
+              {order.itemName} : ${totalPrice.toFixed(2)}
             </Typography>
           }
           secondary={
@@ -77,9 +77,9 @@ function OrderItem(props) {
         />
 
         <Box
-          display={editable ? "flex" : "none"}
+          display={editable === "true" ? "flex" : "none"}
           alignItems="stretch"
-          justifyContent="space-between"
+          justifyContent="inline"
         >
           <QuantityPicker
             type="number"
@@ -89,8 +89,8 @@ function OrderItem(props) {
             onChange={handleQuantityChange}
           />
           <Button
+            margin-left="1rem"
             disableRipple
-            size="small"
             color="secondary"
             onClick={handleDelete}
           >
@@ -109,7 +109,11 @@ function Order(props) {
   return (
     <List dense>
       {orderItems.map((order) => (
-        <OrderItem order={order} editable={editable} />
+        <OrderItem
+          order={order}
+          editable={editable}
+          imageUrl={order.imageUrl}
+        />
       ))}
     </List>
   );

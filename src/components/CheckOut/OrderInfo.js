@@ -4,22 +4,26 @@ import Order from "components/Menu/Order";
 import { PriceDisplay } from "components/Menu/Cart";
 
 const OrderContainer = styled.div`
-  width: 40%;
-  align-items: stretch;
-  padding-left: 30px;
+  // margin: auto;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  // text-align: center;
 `;
 
 const OrderList = styled(List)`
-  height: 300px;
+  height: 30vh;
   overflow: scroll;
 `;
-function OrderInfo({ onFinished }) {
+function OrderInfo(props) {
+  let isEdit = props.editable;
   return (
     <OrderContainer>
       <p>
         ORDER SUMMARY
+        <Divider />
         <OrderList>
-          <Order editable={false} />
+          <Order editable={isEdit} />
         </OrderList>
       </p>
       <Divider></Divider>

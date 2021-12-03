@@ -11,6 +11,10 @@ export const getOrderItems = createSelector(
 );
 
 export const getOrderId = createSelector(orderSelector, (order) => order.id);
+export const getOrderimageUrl = createSelector(
+  orderSelector,
+  (order) => order.imageUrl
+);
 
 export const getReceiptUrl = createSelector(
   orderSelector,
@@ -58,7 +62,8 @@ export const getOrderItemInfo = createSelector(
         return true;
       })
       .map(([orderKey, order]) => {
-        const { itemId, addonIds, quantity, specialInstruction } = order;
+        const { itemId, addonIds, quantity, specialInstruction, imageUrl } =
+          order;
         const foundItem = itemDict[itemId];
         const foundAddons = addonIds.map((id) => {
           return {
@@ -76,6 +81,7 @@ export const getOrderItemInfo = createSelector(
           quantity: quantity,
           addons: foundAddons,
           specialInstruction,
+          imageUrl: foundItem.imageUrl,
         };
       });
   }

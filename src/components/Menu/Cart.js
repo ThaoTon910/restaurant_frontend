@@ -78,7 +78,7 @@ export function PriceDisplay() {
           <ListItemText primary="Discount "></ListItemText>
           <ListItemSecondaryAction>
             {" "}
-            ${discountAmount.toFixed(2)}
+            <h3 color="blue">${discountAmount.toFixed(2)}</h3>
           </ListItemSecondaryAction>
         </ListItem>
       ) : (
@@ -114,7 +114,7 @@ function Cart() {
         ) : (
           <div>
             <Box height="60vh" overflow="scroll" marginY="20px">
-              <Order editable={true} /> <PriceDisplay />
+              <Order editable="true" /> <PriceDisplay />
               <Divider />
             </Box>
             <Divider></Divider>

@@ -1,28 +1,32 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import foodMenuApi from 'store/FoodMenu/api';
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import foodMenuApi from "store/FoodMenu/api";
+import { isMobile } from "react-device-detect";
 
 export const fetchCategories = createAsyncThunk(
-  'foodmenu/fetchCategories', foodMenuApi.fetchCategories
-)
+  "foodmenu/fetchCategories",
+  foodMenuApi.fetchCategories
+);
 
 export const fetchFoodMenuItems = createAsyncThunk(
-  'foodmenu/fetchFoodMenuItems', foodMenuApi.fetchFoodMenuItems
-)
+  "foodmenu/fetchFoodMenuItems",
+  foodMenuApi.fetchFoodMenuItems
+);
 
 export const fetchMenu = createAsyncThunk(
-  'foodmenu/fetchMenu', foodMenuApi.fetchMenu
-)
+  "foodmenu/fetchMenu",
+  foodMenuApi.fetchMenu
+);
 
 export const foodMenuReducer = createSlice({
-  name: 'foodmenu',
+  name: "foodmenu",
   initialState: {
     loading: true,
     displayingItem: null,
     categoryIndex: 0,
+    showCategory: false,
     categories: [],
     addonGroups: [],
-    items: []
+    items: [],
   },
   reducers: {
     displayItem: (state, action) => {
@@ -32,14 +36,20 @@ export const foodMenuReducer = createSlice({
     hideItem: (state) => {
       state.displayingItem = null;
     },
+    setCategoryMenu: (state, action) => {
+      state.showCategory = action.payload;
+    },
 
     setCategoryIndex: (state, action) => {
-      const newIndex = action.payload
-      if(Number.isInteger(newIndex) && newIndex < state.categories.length && newIndex >= 0){
+      const newIndex = action.payload;
+      if (
+        Number.isInteger(newIndex) &&
+        newIndex < state.categories.length &&
+        newIndex >= 0
+      ) {
         state.categoryIndex = action.payload;
       }
     },
-
   },
 
   extraReducers: (builder) => {
@@ -51,10 +61,11 @@ export const foodMenuReducer = createSlice({
       state.categories = action.payload.categories;
       state.addonGroups = action.payload.addonGroups;
     });
-  }
-})
+  },
+});
 
 // Action creators are generated for each case reducer function
-export const { displayItem, hideItem, setCategoryIndex } = foodMenuReducer.actions
+export const { displayItem, hideItem, setCategoryIndex, setCategoryMenu } =
+  foodMenuReducer.actions;
 
-export default foodMenuReducer.reducer
+export default foodMenuReducer.reducer;

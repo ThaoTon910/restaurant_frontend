@@ -3,15 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategoryIndex, getCategoryNames } from "store/FoodMenu/selector";
 
 import React from "react";
-import { setCategoryIndex } from "store/FoodMenu/reducer";
+import { setCategoryIndex, setCategoryMenu } from "store/FoodMenu/reducer";
 
-function CategoryPicker() {
+function CategoryPickerMobile() {
   const categories = useSelector(getCategoryNames);
   const categoryIndex = useSelector(getCategoryIndex);
   const dispatch = useDispatch();
 
   const handleCategoryChange = (e, newIndex) => {
     dispatch(setCategoryIndex(newIndex));
+  };
+  const hanldePicker = () => {
+    return dispatch(setCategoryMenu(false));
   };
 
   return (
@@ -26,12 +29,11 @@ function CategoryPicker() {
         indicatorColor="primary"
       >
         {categories.map((name, index) => (
-          <Tab key={index} label={name} />
+          <Tab key={index} label={name} onClick={hanldePicker} />
         ))}
-        <Tab key={1111} label="NO MORE" />
       </Tabs>
     </Box>
   );
 }
 
-export default CategoryPicker;
+export default CategoryPickerMobile;
